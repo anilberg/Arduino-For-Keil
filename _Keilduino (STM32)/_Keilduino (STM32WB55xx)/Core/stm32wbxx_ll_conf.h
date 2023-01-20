@@ -295,6 +295,6 @@
 }
 #endif
 
-#endif /* __stm32wbxx_ll_CONF_H */
+#endif /* __STM32WBXX_LL_CONF_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
