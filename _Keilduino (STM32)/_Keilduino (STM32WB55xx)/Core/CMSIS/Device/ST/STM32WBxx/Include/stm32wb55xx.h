@@ -343,6 +343,16 @@ typedef struct
   __IO uint32_t BRR;         /*!< GPIO Bit Reset register,               Address offset: 0x28      */
 } GPIO_TypeDef;
 
+/** @defgroup Output_Maximum_frequency_enumeration 
+  * @{
+  */
+typedef enum
+{
+  GPIO_Speed_Level_1  = 0x01, /*!< Medium Speed */
+  GPIO_Speed_Level_2  = 0x02, /*!< Fast Speed   */
+  GPIO_Speed_Level_3  = 0x03  /*!< High Speed   */
+}GPIOSpeed_TypeDef;
+
 /**
   * @brief Inter-integrated Circuit Interface
   */

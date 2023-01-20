@@ -73,6 +73,17 @@ typedef struct
                            can be a value of @ref EXTI_GPIOSel */
 } EXTI_ConfigTypeDef;
 
+/** 
+  * @brief  EXTI Trigger enumeration  
+  */
+
+typedef enum
+{
+  EXTI_Trigger_Rising = 0x08,
+  EXTI_Trigger_Falling = 0x0C,
+  EXTI_Trigger_Rising_Falling = 0x10
+}EXTITrigger_TypeDef;
+
 /**
   * @}
   */

@@ -1,6 +1,7 @@
 #ifndef __WMATH_H
 #define __WMATH_H
 
+
 extern "C" {
 #include "stdlib.h"
 #include "math.h"

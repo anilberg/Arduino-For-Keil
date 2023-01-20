@@ -211,7 +211,7 @@ void Timer_SetInterrupt(TIM_TypeDef* TIMx, uint32_t time, Timer_CallbackFunction
     uint16_t period, prescaler;
     uint32_t clock = Timer_GetClockMax(TIMx);
 
-    if(!IS_TIM_ALL_PERIPH(TIMx) || time == 0)
+    if(!IS_TIM_INSTANCE(TIMx) || time == 0)
         return;
 
     /*将定时中断时间转换为重装值和时钟分频值*/
@@ -244,7 +244,7 @@ void Timer_SetInterruptFreqUpdate(TIM_TypeDef* TIMx, uint32_t freq)
     uint16_t period, prescaler;
     uint32_t clock = Timer_GetClockMax(TIMx);
 
-    if(!IS_TIM_ALL_PERIPH(TIMx) || freq == 0)
+    if(!IS_TIM_INSTANCE(TIMx) || freq == 0)
         return;
 
     Timer_FreqToArrPsc(
@@ -265,7 +265,7 @@ void Timer_SetInterruptFreqUpdate(TIM_TypeDef* TIMx, uint32_t freq)
 uint32_t Timer_GetClockOut(TIM_TypeDef* TIMx)
 {
     uint32_t clock = Timer_GetClockMax(TIMx);
-    if(!IS_TIM_ALL_PERIPH(TIMx))
+    if(!IS_TIM_INSTANCE(TIMx))
         return 0;
 
     return (clock / ((TIMx->ARR + 1) * (TIMx->PSC + 1)));
@@ -282,7 +282,7 @@ void Timer_SetInterruptTimeUpdate(TIM_TypeDef* TIMx, uint32_t time)
     uint16_t period, prescaler;
     uint32_t clock = Timer_GetClockMax(TIMx);
 
-    if(!IS_TIM_ALL_PERIPH(TIMx))
+    if(!IS_TIM_INSTANCE(TIMx))
         return;
 
     Timer_TimeToArrPsc(
@@ -292,7 +292,7 @@ void Timer_SetInterruptTimeUpdate(TIM_TypeDef* TIMx, uint32_t time)
         &prescaler
     );
     TIM_SetAutoreload(TIMx, period - 1);
-    TIM_PrescalerConfig(TIMx, prescaler - 1, TIM_PSCReloadMode_Immediate);
+    TIM_PrescalerConfig(TIMx, prescaler - 1, TIM_PSC_PSC);
 }
 
 /**
@@ -317,7 +317,7 @@ void Timer_SetInterruptBase(
     uint8_t TIMx_IRQn;
     TIMERx_Type TIMERx;
 
-    if(!IS_TIM_ALL_PERIPH(TIMx))
+    if(!IS_TIM_INSTANCE(TIMx))
         return;
 
 #define TIMx_IRQ_DEF(n,x_IRQn)\

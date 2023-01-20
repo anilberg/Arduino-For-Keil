@@ -139,6 +139,9 @@ typedef enum
 #define  GPIO_SPEED_FREQ_MEDIUM     (0x00000001u)  /*!< Medium speed    */
 #define  GPIO_SPEED_FREQ_HIGH       (0x00000002u)  /*!< High speed      */
 #define  GPIO_SPEED_FREQ_VERY_HIGH  (0x00000003u)  /*!< Very high speed */
+
+#define GPIO_Speed_40MHz	GPIO_SPEED_FREQ_MEDIUM
+
 /**
   * @}
   */
