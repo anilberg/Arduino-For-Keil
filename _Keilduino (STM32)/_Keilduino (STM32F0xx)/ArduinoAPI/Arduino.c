@@ -23,10 +23,10 @@
 #include "Arduino.h"
 
 /**
-  * @brief  配置引脚输入输出模式
-  * @param  Pin: 引脚编号
-  * @param  GPIO_Mode_x: 模式
-  * @retval 无
+  * @brief  Configure pin input/output mode
+  * @param  Pin: Pin number
+  * @param  GPIO_Mode_x: Pin mode
+  * @retval Null
   */
 void pinMode(uint8_t Pin, pinMode_TypeDef pinMode_x)
 {
@@ -57,10 +57,10 @@ void pinMode(uint8_t Pin, pinMode_TypeDef pinMode_x)
 }
 
 /**
-  * @brief  将数字HIGH(1)或LOW(0)值写入数字引脚
-  * @param  Pin:引脚编号
-  * @param  val: 写入值
-  * @retval 无
+  * @brief  Write a digital HIGH(1) or LOW(0) value to a digital pin
+  * @param  Pin: Pin number
+  * @param  val: Pin output Logic High/Low
+  * @retval Null
   */
 void digitalWrite(uint8_t Pin, uint8_t val)
 {
@@ -71,9 +71,9 @@ void digitalWrite(uint8_t Pin, uint8_t val)
 }
 
 /**
-  * @brief  读取引脚电平
-  * @param  Pin: 引脚编号
-  * @retval 引脚电平
+  * @brief  Read pin level
+  * @param  Pin: Pin number
+  * @retval Pin level
   */
 uint8_t digitalRead(uint8_t Pin)
 {
@@ -84,10 +84,10 @@ uint8_t digitalRead(uint8_t Pin)
 }
 
 /**
-  * @brief  将模拟值(PWM占空比)写入引脚
-  * @param  Pin: 引脚编号
-  * @param  val: PWM占空比
-  * @retval PWM占空比
+  * @brief  Write an analog value (PWM duty cycle) to the pin
+  * @param  Pin: Pin number
+  * @param  val: PWM duty cycle
+  * @retval PWM duty cycle
   */
 uint16_t analogWrite(uint8_t Pin, uint16_t val)
 {
@@ -95,9 +95,9 @@ uint16_t analogWrite(uint8_t Pin, uint16_t val)
 }
 
 /**
-  * @brief  从指定的模拟引脚读取值
-  * @param  Pin: 引脚编号
-  * @retval ADC值：0~4095
+  * @brief  Read the value from the specified analog pin
+  * @param  Pin: Pin number
+  * @retval ADC value 0 to 4095
   */
 uint16_t analogRead(uint8_t Pin)
 {
@@ -105,9 +105,9 @@ uint16_t analogRead(uint8_t Pin)
 }
 
 /**
-  * @brief  模拟引脚读取值(DMA方式)
-  * @param  Pin: 引脚编号
-  * @retval ADC值：0~4095
+  * @brief  Analog pin read value (DMA mode)
+  * @param  Pin: Pin number
+  * @retval ADC value 0 to 4095
   */
 uint16_t analogRead_DMA(uint8_t Pin)
 {
@@ -118,12 +118,12 @@ uint16_t analogRead_DMA(uint8_t Pin)
 }
 
 /**
-  * @brief  一次移出一个字节的数据，从最左端或最小(最右边)开始
-  * @param  dataPin: 输出每个位的 pin
-  * @param  clockPin: 将 dataPin 设置为正确值后要切换的 pin (int)
+  * @brief  Shift out one byte of data at a time, starting from the leftmost or smallest (rightmost)
+  * @param  dataPin: Output pin for each bit
+  * @param  clockPin: Pin to toggle after setting dataPin to the correct value (int)
   * @param  bitOrder: MSBFIRST / LSBFIRST
-  * @param  value: 要移出的数据(字节)
-  * @retval 无
+  * @param  value: Data to shift out (bytes)
+  * @retval Null
   */
 void shiftOut(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder, uint8_t value)
 {
@@ -139,11 +139,11 @@ void shiftOut(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder, uint8_t value
 }
 
 /**
-  * @brief  一次将一个字节的数据移位，从最左端或最小 (最右边) 开始
-  * @param  dataPin:  输入每个位的 pin
-  * @param  clockPin: 要切换到的 pin 信号从dataPin读取
+  * @brief  Shift data one byte at a time, starting from leftmost or least (rightmost)
+  * @param  dataPin:  Input the pin for each bit
+  * @param  clockPin: The pin signal to switch to is read from dataPin
   * @param  bitOrder: MSBFIRST/LSBFIRST
-  * @retval 读取的值 (字节)
+  * @retval Read value (bytes)
   */
 uint32_t shiftIn(uint8_t dataPin, uint8_t clockPin, uint32_t bitOrder)
 {
@@ -167,13 +167,13 @@ uint32_t shiftIn(uint8_t dataPin, uint8_t clockPin, uint32_t bitOrder)
 }
 
 /**
-  * @brief  将一个数字(整形)从一个范围重新映射到另一个区域
-  * @param  x: 要映射的数字
-  * @param  in_min: 值的当前范围的下界
-  * @param  in_max: 值的当前范围的上界
-  * @param  out_min: 值的目标范围的下界
-  * @param  out_max: 值目标范围的上界
-  * @retval 映射的值(long)
+  * @brief  Remaps a number (integer) from one range to another
+  * @param  x: The number to map
+  * @param  in_min: The lower bound of the current range of values
+  * @param  in_max: The upper bound of the current range of values
+  * @param  out_min: The lower bound of the target range of values
+  * @param  out_max: The upper bound of value target range
+  * @retval Mapped value (long)
   */
 long map(long x, long in_min, long in_max, long out_min, long out_max)
 {
@@ -181,13 +181,13 @@ long map(long x, long in_min, long in_max, long out_min, long out_max)
 }
 
 /**
-  * @brief  将一个数字(浮点型)从一个范围重新映射到另一个区域
-  * @param  x: 要映射的数字
-  * @param  in_min: 值的当前范围的下界
-  * @param  in_max: 值的当前范围的上界
-  * @param  out_min: 值的目标范围的下界
-  * @param  out_max: 值目标范围的上界
-  * @retval 映射的值(double)
+  * @brief  Remaps a number (float) from one range to another
+  * @param  x: The number to map
+  * @param  in_min: The lower bound of the current range of values
+  * @param  in_max: The upper bound of the current range of values
+  * @param  out_min: The lower bound of the target range of values
+  * @param  out_max: The upper bound of value target range
+  * @retval Mapped value (double)
   */
 double fmap(double x, double in_min, double in_max, double out_min, double out_max)
 {
@@ -195,31 +195,31 @@ double fmap(double x, double in_min, double in_max, double out_min, double out_m
 }
 
 /**
-  * @brief  在引脚上读取脉冲
-  * @param  pin: 要读取脉冲的引脚编号
-  * @param  value: 脉冲类型:高或低
-  * @param  timeout: 等待脉冲开始的微秒数
-  * @retval 脉冲的长度(以微秒计)或0, 如果没有脉冲在超时之前开始
+  * @brief  Read pulse on pin
+  * @param  pin: The pin number to read the pulse from
+  * @param  value: Pulse Type (High or Low)
+  * @param  timeout: Time (microseconds) to wait for a pulse to start
+  * @retval The length of the pulse in microseconds or 0 if no pulse started before the timeout
   */
 uint32_t pulseIn(uint32_t pin, uint32_t state, uint32_t timeout )
 {
-    // cache the IDR address and bit of the pin in order to speed up the
-    // pulse width measuring loop and achieve finer resolution.  calling
+    // Cache the IDR address and bit of the pin in order to speed up the
+    // pulse width measuring loop and achieve finer resolution. Calling
     // digitalRead() instead yields much coarser resolution.
 
     __IO uint16_t * const idr = portInputRegister(digitalPinToPort(pin));
     const uint32_t bit = digitalPinToBitMask(pin);
     const uint32_t stateMask = (state ? bit : 0);
 
-    uint32_t width = 0; // keep initialization out of time critical area
+    uint32_t width = 0; // Keep initialization out of time critical area
 
-    // convert the timeout from microseconds to a number of times through
+    // Convert the timeout from microseconds to a number of times through
     // the initial loop; it takes 16 clock cycles per iteration.
     uint32_t numloops = 0;
     uint32_t maxloops =  timeout * ( F_CPU / 16000000);
     volatile uint32_t dummyWidth = 0;
 
-    // wait for any previous pulse to end
+    // Wait for any previous pulse to end
     while ((*idr & bit) == stateMask)
     {
         if (numloops++ == maxloops)
@@ -229,7 +229,7 @@ uint32_t pulseIn(uint32_t pin, uint32_t state, uint32_t timeout )
         dummyWidth++;
     }
 
-    // wait for the pulse to start
+    // Wait for the pulse to start
     while ((*idr & bit) != stateMask)
     {
         if (numloops++ == maxloops)
@@ -239,7 +239,7 @@ uint32_t pulseIn(uint32_t pin, uint32_t state, uint32_t timeout )
         dummyWidth++;
     }
 
-    // wait for the pulse to stop
+    // Wait for the pulse to stop
     while ((*idr & bit) == stateMask)
     {
         if (numloops++ == maxloops)

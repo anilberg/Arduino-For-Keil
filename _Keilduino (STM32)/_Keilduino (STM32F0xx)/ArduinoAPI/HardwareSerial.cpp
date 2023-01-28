@@ -23,9 +23,9 @@
 #include "HardwareSerial.h"
 
 /**
-  * @brief  串口对象构造函数
-  * @param  串口外设地址
-  * @retval 无
+  * @brief  Serial port object constructor
+  * @param  Serial port peripheral address
+  * @retval Null
   */
 HardwareSerial::HardwareSerial(USART_TypeDef *_USARTx)
 {
@@ -34,9 +34,9 @@ HardwareSerial::HardwareSerial(USART_TypeDef *_USARTx)
 }
 
 /**
-  * @brief  串口中断入口
-  * @param  无
-  * @retval 无
+  * @brief  Serial port interrupt handler
+  * @param  Null
+  * @retval Null
   */
 void HardwareSerial::IRQHandler()
 {
@@ -60,9 +60,9 @@ void HardwareSerial::IRQHandler()
 }
 
 /**
-  * @brief  串口初始化
-  * @param  BaudRate: 波特率
-  * @retval 无
+  * @brief  Serial port initialization
+  * @param  BaudRate: Baudrate
+  * @retval Null
   */
 void HardwareSerial::begin(uint32_t BaudRate)
 {
@@ -70,10 +70,10 @@ void HardwareSerial::begin(uint32_t BaudRate)
 }
 
 /**
-  * @brief  串口初始化
-  * @param  BaudRate: 波特率
-  * @param  Config: 配置参数
-  * @retval 无
+  * @brief  Serial port initialization
+  * @param  BaudRate: Baudrate
+  * @param  Config: Configuration parameters
+  * @retval Null
   */
 void HardwareSerial::begin(uint32_t BaudRate, SERIAL_Config Config)
 {
@@ -81,15 +81,15 @@ void HardwareSerial::begin(uint32_t BaudRate, SERIAL_Config Config)
 }
 
 /**
-  * @brief  串口初始化
-  * @param  BaudRate: 波特率
-  * @param  Config: 配置参数
-  * @param  ChannelPriority: 通道优先级
-  * @retval 无
+  * @brief  Serial port initialization
+  * @param  BaudRate: Baudrate
+  * @param  Config: Configuration parameters
+  * @param  ChannelPriority: Channel priority
+  * @retval Null
   */
 void HardwareSerial::begin(uint32_t BaudRate, SERIAL_Config Config, uint8_t ChannelPriority)
 {
-    //GPIO端口设置
+    // GPIO port settings
     GPIO_InitTypeDef GPIO_InitStructure;
     USART_InitTypeDef USART_InitStructure;
     NVIC_InitTypeDef NVIC_InitStructure;
@@ -131,29 +131,29 @@ void HardwareSerial::begin(uint32_t BaudRate, SERIAL_Config Config, uint8_t Chan
     GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
     GPIO_Init(GPIOx, &GPIO_InitStructure);
 
-    //Usart NVIC 配置
+    // Usart NVIC configuration
     NVIC_InitStructure.NVIC_IRQChannel = ItChannel;
     NVIC_InitStructure.NVIC_IRQChannelPriority = ChannelPriority;
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
     NVIC_Init(&NVIC_InitStructure);
 
-    //USART 初始化设置
-    USART_InitStructure.USART_BaudRate = BaudRate;//串口波特率
-    USART_InitStructure.USART_WordLength = Get_USART_WordLength_x(Config);//字长为8位数据格式
-    USART_InitStructure.USART_StopBits = Get_USART_StopBits_x(Config);//一个停止位
-    USART_InitStructure.USART_Parity = Get_USART_Parity_x(Config);//无奇偶校验位
-    USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;//无硬件数据流控制
-    USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx; //收发模式
-    USART_Init(USARTx, &USART_InitStructure); //初始化串口
+    // USART initialization settings
+    USART_InitStructure.USART_BaudRate = BaudRate;	// Serial baudrate
+    USART_InitStructure.USART_WordLength = Get_USART_WordLength_x(Config);	// Word length is 8-bit data format
+    USART_InitStructure.USART_StopBits = Get_USART_StopBits_x(Config);	// Stop bit
+    USART_InitStructure.USART_Parity = Get_USART_Parity_x(Config);	// No parity bit
+    USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;	// No hardware flow control
+    USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx; // Transceiver mode
+    USART_Init(USARTx, &USART_InitStructure); // Initialize the serial port
 
-    USART_ITConfig(USARTx, USART_IT_RXNE, ENABLE);//开启串口接受中断
-    USART_Cmd(USARTx, ENABLE);                   //使能串口
+    USART_ITConfig(USARTx, USART_IT_RXNE, ENABLE);	// Open the serial port to accept interrupt
+    USART_Cmd(USARTx, ENABLE);                   // Enable serial port
 }
 
 /**
-  * @brief  关闭串口
-  * @param  无
-  * @retval 无
+  * @brief  Close the serial port
+  * @param  Null
+  * @retval Null
   */
 void HardwareSerial::end(void)
 {
@@ -161,9 +161,9 @@ void HardwareSerial::end(void)
 }
 
 /**
-  * @brief  串口中断回调
-  * @param  Function: 回调函数
-  * @retval 无
+  * @brief  Serial port interrupt callback
+  * @param  Function: Callback
+  * @retval Null
   */
 void HardwareSerial::attachInterrupt(USART_CallbackFunction_t Function)
 {
@@ -171,9 +171,9 @@ void HardwareSerial::attachInterrupt(USART_CallbackFunction_t Function)
 }
 
 /**
-  * @brief  获取可从串行端口读取的字节数
-  * @param  无
-  * @retval 可读取的字节数
+  * @brief  Get the number of bytes readable from the serial port
+  * @param  Null
+  * @retval The number of bytes that can be read
   */
 int HardwareSerial::available(void)
 {
@@ -181,13 +181,13 @@ int HardwareSerial::available(void)
 }
 
 /**
-  * @brief  读取传入的串行数据(字符)
-  * @param  无
-  * @retval 可用的传入串行数据的第一个字节 (如果没有可用的数据, 则为-1)
+  * @brief  Read incoming serial data (characters)
+  * @param  Null
+  * @retval First byte of incoming serial data available (-1 if no data available)
   */
 int HardwareSerial::read(void)
 {
-    // if the head isn't ahead of the tail, we don't have any characters
+    // If the head isn't ahead of the tail, we don't have any characters
     if (_rx_buffer_head == _rx_buffer_tail)
     {
         return -1;
@@ -201,9 +201,9 @@ int HardwareSerial::read(void)
 }
 
 /**
-  * @brief  返回传入串行数据的下一个字节(字符), 而不将其从内部串行缓冲区中删除
-  * @param  无
-  * @retval 可用的传入串行数据的第一个字节 (如果没有可用的数据, 则为-1)
+  * @brief  Returns the next byte (character) of incoming serial data without removing it from the internal serial buffer
+  * @param  Null
+  * @retval First byte of incoming serial data available (-1 if no data available)
   */
 int HardwareSerial::peek(void)
 {
@@ -218,9 +218,9 @@ int HardwareSerial::peek(void)
 }
 
 /**
-  * @brief  清空串口缓存
-  * @param  无
-  * @retval 无
+  * @brief  Clear the serial cache
+  * @param  Null
+  * @retval Null
   */
 void HardwareSerial::flush(void)
 {
@@ -228,9 +228,9 @@ void HardwareSerial::flush(void)
 }
 
 /**
-  * @brief  串口写入一个字节
-  * @param  写入的字节
-  * @retval 字节
+  * @brief  Serial port writes a byte
+  * @param  Byte will be written
+  * @retval 1
   */
 size_t HardwareSerial::write(uint8_t n)
 {
@@ -239,11 +239,11 @@ size_t HardwareSerial::write(uint8_t n)
     return 1;
 }
 
-//Creat Object For User
-HardwareSerial Serial(USART1);//TX-PA9 RX-PA10
-HardwareSerial Serial2(USART2);//TX-PA2 RX-PA3
+// Create Object For User
+HardwareSerial Serial(USART1);	//TX-PA9 RX-PA10
+HardwareSerial Serial2(USART2);	//TX-PA2 RX-PA3
 
-//USARTx_IRQHandler
+// USARTx_IRQHandler
 extern "C" {
     void USART1_IRQHandler(void)
     {

@@ -1,86 +1,86 @@
 # Arduino-For-Keil STM32F0xx
 > https://github.com/FASTSHIFT/Arduino-For-Keil
 
-# 更新日志
+# Update Log
 ## [v1.0] - 2018.7.29
-* 1.基于STM32F0xx标准外设库(1.0.1版)，移植了全部的ArduinoAPI
+* 1.Transplanted all ArduinoAPI7 based on STM32F0xx standard peripheral library (version 1.0.1)
 
 ## [v1.1] - 2018.8.14
-* 1.整理USART相关代码
-* 2.修改Tone库只占用一个定时器(可使用toneSetTimer()函数切换)
-* 3.time_exti.c改名为timer.c
+* 1.Organize USART related codes
+* 2.Modify the Tone library to only occupy one timer (you can use the toneSetTimer() function to switch)
+* 3.time_exti.c renamed to timer.c
 
 ## [v1.2] - 2018.8.17
-* 1.在Arduino.h添加了更完整的与GPIO寄存器交互函数
-* 2.提升与第三方库的兼容性
+* 1.Added a more complete function for interacting with GPIO registers in Arduino.h
+* 2.Improve compatibility with third-party libraries
 
 ## [v1.3] - 2018.8.20
-* 1.添加WCharacter.h，支持Arduino有关Characters的函数
-* 2.添加mcu_type.h，使Arduino.h可以跨MCU使用
+* 1.Add WCharacter.h to support Arduino functions related to Characters
+* 2.Add mcu_type.h so that Arduino.h can be used across MCUs
 
 ## [v1.4] - 2018.10.9
-* 1.添加注释
-* 2.更新Tone、HardwareSerial
-* 3.去除usart.c usart.h
+* 1.Add notes
+* 2.Update Tone, HardwareSerial
+* 3.Remove usart.c usart.h
 
 ## [v1.5] - 2018.11.21
-* 1.更新Arduino.c
+* 1.Update Arduino.c
 
 ## [v1.6] - 2019.2.18
-* 1.整理代码
-* 2.更好的兼容性
+* 1.Tidy code
+* 2.Better compatibility
 
 ## [v1.7] - 2019.3.22
-* 1.为SysTick设置最高中断优先级，防止被其他中断打断(非常重要!)
+* 1.Set the highest interrupt priority for SysTick to prevent being interrupted by other interrupts (very important!)
 
 ## [v1.8] - 2019.6.3
-* 1.pwm.c库将频率设定值从16位改为32位，并加入参数合法范围判断
-* 2.ARDUINO宏定义从Arduino.h转至全局宏定义
+* 1.The pwm.c library changes the frequency setting value from 16 bits to 32 bits, and adds the parameter legal range judgment
+* 2.ARDUINO macro definition from Arduino.h to global macro definition
 
 ## [v1.9] - 2019.6.18
-* 1.PA4已可以输出PWM
+* 1.PA4 can supply PWM output
 
 ## [v2.0] - 2019.7.12
-* 1.Arduino.h里添加yield()与digitalPinToInterrupt(Pin)定义
-* 2.更改analogRead_DMA()合法参数判断方式
+* 1.Add yield() and digitalPinToInterrupt(Pin) definitions in Arduino.h
+* 2.Change the legal parameter judgment method of analogRead_DMA()
 
 ## [v2.1] - 2019.10.3
-* 1.同步_Keilduino(STM32F10x) V_7.0部分代码
-* 2.暂时去除ADC DMA
-* 3.将STM32F030F4P6串口1映射到PA9和PA10
-* 4.添加TIM6定时中断
+* 1.Synchronization _Keilduino(STM32F10x) V_7.0 part code
+* 2.Remove ADC DMA temporarily
+* 3.Map STM32F030F4P6 serial port 1 to PA9 and PA10
+* 4.Add TIM6 timing interrupt
 
 ## [v2.2] - 2019.11.4
-* 1.更新Print库(移植Georges Menie的printf-stdarg.c)，printf不再有长度限制
-* 2.添加sprintf成员
+* 1.Update the Print library (transplant Georges Menie's printf-stdarg.c), printf no longer has a length limit
+* 2.Add sprintf member
 
 ## [v2.3] - 2019.12.25
-* 1.SPI库可以正常使用，添加使用内部时钟选项
-* 2.同步_Keilduino(STM32F10x) V_7.5部分代码
+* 1.The SPI library can be used normally, add the option to use the internal clock
+* 2.Synchronization _Keilduino(STM32F10x) V_7.5 part code
 
 ## [v2.4] - 2020.1.15
-* 1.由于Print库的printf不支持浮点输出，将Print库还原，使用vsnprintf转换printf 
+* 1.Since the printf of the Print library does not support floating-point output, restore the Print library and use vsnprintf to convert printf
 
 ## [v2.5] - 2020.4.14
-* 1.更新日志改为使用Markdown语法编写
-* 2.去除重复的dtostrf.c、dtostrf.h
-* 3.添加Libraries路径
-* 4.Arduino.h添加时钟周期与时间转换的宏
-* 5.Arduino.h添加WMath.h与Tone.h
-* 6.添加README文件组
-* 7.添加yield()函数实体
-* 8.GPIO快速操作宏定义函数从mcu_type.h转移到gpio.h和Arduino.h
-* 9.__STM32__宏定义从Arduino.h转移到mcu_type.h
-* 10.delay.c、adc.c去除#include "Arduino.h"
-* 11.为PA5添加定时器通道定义
+* 1.The update log is changed to use Markdown syntax to write
+* 2.Remove duplicate dtostrf.c, dtostrf.h
+* 3.Add Libraries path
+* 4.Arduino.h adds macros for clock cycle and time conversion
+* 5.Add WMath.h and Tone.h to Arduino.h
+* 6.Add README file group
+* 7.Add yield() function entity
+* 8.GPIO fast operation macro definition, function moved from mcu_type.h to gpio.h and Arduino.h
+* 9.__STM32__ macro definition moved from Arduino.h to mcu_type.h
+* 10.In Delay.c, adc.c files remove #include "Arduino.h"
+* 11.Add timer channel definition for PA5
 
 ## [v2.6] - 2020.4.16
-* 1.去除FileGroup.h
-* 2.Libraries只保留Servo库
+* 1.Remove FileGroup.h
+* 2.Libraries only keep the Servo library
 
 ## [v2.7] - 2020.4.24
-* 1.adc库只能读一个通道的BUG已解决
-* 2.ADC_DMA模式已支持
+* 1.The bug that the adc library can only read one channel has been resolved
+* 2.ADC_DMA mode is supported
 
 ## [v2.8] - 2020.11.4
-* 1.修复exti库遗漏的外部中断线设置
+* 1.Fix external interrupt line setting missing by exti library

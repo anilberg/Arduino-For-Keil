@@ -23,10 +23,10 @@
 #include "Stream.h"
 #include "Arduino.h"
 
-#define PARSE_TIMEOUT 1000  // default number of milli-seconds to wait
-#define NO_SKIP_CHAR  1  // a magic char not found in a valid ASCII numeric field
+#define PARSE_TIMEOUT 1000  // Default number of milli-seconds to wait
+#define NO_SKIP_CHAR  1  // A magic char not found in a valid ASCII numeric field
 
-// private method to read stream with timeout
+// Private method to read stream with timeout
 int Stream::timedRead()
 {
     int c;
@@ -40,7 +40,7 @@ int Stream::timedRead()
     return -1;     // -1 indicates timeout
 }
 
-// private method to peek stream with timeout
+// Private method to peek stream with timeout
 int Stream::timedPeek()
 {
     int c;
@@ -54,7 +54,7 @@ int Stream::timedPeek()
     return -1;     // -1 indicates timeout
 }
 
-// returns peek of the next digit in the stream or -1 if timeout
+// Returns peek of the next digit in the stream or -1. If timeout
 // discards non-numeric characters
 int Stream::peekNextDigit()
 {
@@ -72,51 +72,51 @@ int Stream::peekNextDigit()
 // Public Methods
 //////////////////////////////////////////////////////////////
 
-void Stream::setTimeout(unsigned long timeout)  // sets the maximum number of milliseconds to wait
+void Stream::setTimeout(unsigned long timeout)  // Sets the maximum number of milliseconds to wait
 {
     _timeout = timeout;
 }
 
-// find returns true if the target string is found
+// Find returns true if the target string is found
 bool  Stream::find(char *target)
 {
     return findUntil(target, (char*)"");
 }
 
-// reads data from the stream until the target string of given length is found
-// returns true if target string is found, false if timed out
+// Reads data from the stream until the target string of given length is found
+// Returns true if target string is found, false if timed out
 bool Stream::find(char *target, size_t length)
 {
     return findUntil(target, length, NULL, 0);
 }
 
-// as find but search ends if the terminator string is found
+// As find but search ends if the terminator string is found
 bool  Stream::findUntil(char *target, char *terminator)
 {
     return findUntil(target, strlen(target), terminator, strlen(terminator));
 }
 
-// reads data from the stream until the target string of the given length is found
-// search terminated if the terminator string is found
-// returns true if target string is found, false if terminated or timed out
+// Reads data from the stream until the target string of the given length is found
+// Search terminated if the terminator string is found
+// Returns true if target string is found, false if terminated or timed out
 bool Stream::findUntil(char *target, size_t targetLen, char *terminator, size_t termLen)
 {
-    size_t index = 0;  // maximum target string length is 64k bytes!
+    size_t index = 0;  // Maximum target string length is 64k bytes!
     size_t termIndex = 0;
     int c;
 
     if( *target == 0)
-        return true;   // return true if target is a null string
+        return true;   // Return true if target is a null string
     while( (c = timedRead()) > 0)
     {
 
         if(c != target[index])
-            index = 0; // reset index if any char does not match
+            index = 0; // Reset index if any char does not match
 
         if( c == target[index])
         {
-            //////Serial.print("found "); Serial.write(c); Serial.print("index now"); Serial.println(index+1);
-            if(++index >= targetLen)   // return true if all chars in the target match
+            ////// Serial.print("found "); Serial.write(c); Serial.print("index now"); Serial.println(index+1);
+            if(++index >= targetLen)   // Return true if all chars in the target match
             {
                 return true;
             }
@@ -125,7 +125,7 @@ bool Stream::findUntil(char *target, size_t targetLen, char *terminator, size_t 
         if(termLen > 0 && c == terminator[termIndex])
         {
             if(++termIndex >= termLen)
-                return false;       // return false if terminate string found before target string
+                return false;       // Return false if terminate string found before target string
         }
         else
             termIndex = 0;
@@ -134,16 +134,16 @@ bool Stream::findUntil(char *target, size_t targetLen, char *terminator, size_t 
 }
 
 
-// returns the first valid (long) integer value from the current position.
-// initial characters that are not digits (or the minus sign) are skipped
-// function is terminated by the first character that is not a digit.
+// Returns the first valid (long) integer value from the current position.
+// Initial characters that are not digits (or the minus sign) are skipped
+// Function is terminated by the first character that is not a digit.
 long Stream::parseInt()
 {
-    return parseInt(NO_SKIP_CHAR); // terminate on first non-digit character (or timeout)
+    return parseInt(NO_SKIP_CHAR); // Terminate on first non-digit character (or timeout)
 }
 
-// as above but a given skipChar is ignored
-// this allows format characters (typically commas) in values to be ignored
+// As above but a given skipChar is ignored
+// This allows format characters (typically commas) in values to be ignored
 long Stream::parseInt(char skipChar)
 {
     boolean isNegative = false;
@@ -151,19 +151,19 @@ long Stream::parseInt(char skipChar)
     int c;
 
     c = peekNextDigit();
-    // ignore non numeric leading characters
+    // Ignore non numeric leading characters
     if(c < 0)
-        return 0; // zero returned if timeout
+        return 0; // Zero returned if timeout
 
     do
     {
         if(c == skipChar)
-            ; // ignore this charactor
+            ; // Ignore this charactor
         else if(c == '-')
             isNegative = true;
-        else if(c >= '0' && c <= '9')        // is c a digit?
+        else if(c >= '0' && c <= '9')        // Is c a digit?
             value = value * 10 + c - '0';
-        read();  // consume the character we got with peek
+        read();  // Consume the character we got with peek
         c = timedPeek();
     }
     while( (c >= '0' && c <= '9') || c == skipChar );
@@ -174,14 +174,14 @@ long Stream::parseInt(char skipChar)
 }
 
 
-// as parseInt but returns a floating point value
+// As parseInt but returns a floating point value
 float Stream::parseFloat()
 {
     return parseFloat(NO_SKIP_CHAR);
 }
 
-// as above but the given skipChar is ignored
-// this allows format characters (typically commas) in values to be ignored
+// As above but the given skipChar is ignored
+// This allows format characters (typically commas) in values to be ignored
 float Stream::parseFloat(char skipChar)
 {
     boolean isNegative = false;
@@ -191,25 +191,25 @@ float Stream::parseFloat(char skipChar)
     float fraction = 1.0;
 
     c = peekNextDigit();
-    // ignore non numeric leading characters
+    // Ignore non numeric leading characters
     if(c < 0)
-        return 0; // zero returned if timeout
+        return 0; // Zero returned if timeout
 
     do
     {
         if(c == skipChar)
-            ; // ignore
+            ; // Ignore
         else if(c == '-')
             isNegative = true;
         else if (c == '.')
             isFraction = true;
-        else if(c >= '0' && c <= '9')         // is c a digit?
+        else if(c >= '0' && c <= '9')         // Is c a digit?
         {
             value = value * 10 + c - '0';
             if(isFraction)
                 fraction *= 0.1;
         }
-        read();  // consume the character we got with peek
+        read();  // Consume the character we got with peek
         c = timedPeek();
     }
     while( (c >= '0' && c <= '9')  || c == '.' || c == skipChar );
@@ -222,10 +222,10 @@ float Stream::parseFloat(char skipChar)
         return value;
 }
 
-// read characters from stream into buffer
-// terminates if length characters have been read, or timeout (see setTimeout)
-// returns the number of characters placed in the buffer
-// the buffer is NOT null terminated.
+// Read characters from stream into buffer
+// Terminates if length characters have been read, or timeout (see setTimeout)
+// Returns the number of characters placed in the buffer
+// The buffer is NOT null terminated.
 //
 size_t Stream::readBytes(char *buffer, size_t length)
 {
@@ -241,9 +241,9 @@ size_t Stream::readBytes(char *buffer, size_t length)
 }
 
 
-// as readBytes with terminator character
-// terminates if length characters have been read, timeout, or if the terminator character  detected
-// returns the number of characters placed in the buffer (0 means no valid data found)
+// As readBytes with terminator character
+// Terminates if length characters have been read, timeout, or if the terminator character  detected
+// Returns the number of characters placed in the buffer (0 means no valid data found)
 
 size_t Stream::readBytesUntil(char terminator, char *buffer, size_t length)
 {
@@ -256,7 +256,7 @@ size_t Stream::readBytesUntil(char terminator, char *buffer, size_t length)
         *buffer++ = (char)c;
         index++;
     }
-    return index; // return number of characters, not including null terminator
+    return index; // Return number of characters, not including null terminator
 }
 
 String Stream::readString()
@@ -286,8 +286,8 @@ String Stream::readStringUntil(char terminator)
 
 int Stream::findMulti( struct Stream::MultiTarget *targets, int tCount)
 {
-    // any zero length target string automatically matches and would make
-    // a mess of the rest of the algorithm.
+    // Any zero length target string automatically matches and would make
+    // A mess of the rest of the algorithm.
     for (struct MultiTarget *t = targets; t < targets + tCount; ++t)
     {
         if (t->len <= 0)
@@ -302,7 +302,7 @@ int Stream::findMulti( struct Stream::MultiTarget *targets, int tCount)
 
         for (struct MultiTarget *t = targets; t < targets + tCount; ++t)
         {
-            // the simple case is if we match, deal with that first.
+            // The simple case is if we match, deal with that first.
             if (c == t->str[t->index])
             {
                 if (++t->index == t->len)
@@ -311,8 +311,8 @@ int Stream::findMulti( struct Stream::MultiTarget *targets, int tCount)
                     continue;
             }
 
-            // if not we need to walk back and see if we could have matched further
-            // down the stream (ie '1112' doesn't match the first position in '11112'
+            // If not we need to walk back and see if we could have matched further
+            // Down the stream (ie '1112' doesn't match the first position in '11112'
             // but it will match the second position so we can't just reset the current
             // index to 0 when we find a mismatch.
             if (t->index == 0)
@@ -322,18 +322,18 @@ int Stream::findMulti( struct Stream::MultiTarget *targets, int tCount)
             do
             {
                 --t->index;
-                // first check if current char works against the new current index
+                // First check if current char works against the new current index
                 if (c != t->str[t->index])
                     continue;
 
-                // if it's the only char then we're good, nothing more to check
+                // If it's the only char then we're good, nothing more to check
                 if (t->index == 0)
                 {
                     t->index++;
                     break;
                 }
 
-                // otherwise we need to check the rest of the found string
+                // Otherwise we need to check the rest of the found string
                 int diff = origIndex - t->index;
                 size_t i;
                 for (i = 0; i < t->index; ++i)
@@ -342,7 +342,7 @@ int Stream::findMulti( struct Stream::MultiTarget *targets, int tCount)
                         break;
                 }
 
-                // if we successfully got through the previous loop then our current
+                // If we successfully got through the previous loop then our current
                 // index is good.
                 if (i == t->index)
                 {
@@ -350,11 +350,11 @@ int Stream::findMulti( struct Stream::MultiTarget *targets, int tCount)
                     break;
                 }
 
-                // otherwise we just try the next index
+                // Otherwise we just try the next index
             }
             while (t->index);
         }
     }
-    // unreachable
-//  return -1;
+    // Unreachable
+//  Return -1;
 }
